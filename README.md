@@ -2,16 +2,6 @@
 
 A final-year B.Tech project focused on privacy-preserving healthcare AI using Federated Learning, Edge-AI, secure device/hospital authentication, and medical image classification.
 
-## Project Team
-
-- G. Vincy — 22X41A4414
-- N. Yaswanth — 22X41A4436
-- O. Nagendra — 22X41A4439
-- K. Satyavathi — 22X41A4418
-- N. Vasu Deva Naga Sai — 22X41A4437
-- SK. Yasin Ali — 22X41A4453
-- Guide: D. Sai Venkata Gowtham, Assistant Professor
-
 ## Overview
 
 The project proposes a healthcare framework in which sensitive medical data remains at local hospital/client nodes while model updates are collaboratively aggregated through Federated Learning.
