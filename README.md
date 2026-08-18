@@ -1,199 +1,509 @@
 # Privacy-Preserving Healthcare Device Authentication via Edge-AI and Federated Learning
 
-A project focused on privacy-preserving healthcare AI using Federated Learning, Edge-AI, secure device/hospital authentication, and medical image classification.
+> A privacy-aware healthcare AI project combining Edge-AI, Federated Learning, HMAC-SHA256 device authentication, and CNN-based chest X-ray classification.
 
-## Overview
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-Keras-orange)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-CNN-green)
+![Federated Learning](https://img.shields.io/badge/Federated%20Learning-FedAvg-purple)
+![Security](https://img.shields.io/badge/Security-HMAC--SHA256-red)
 
-The project proposes a healthcare framework in which sensitive medical data remains at local hospital/client nodes while model updates are collaboratively aggregated through Federated Learning.
+---
 
-The design combines:
+## 📌 Project Overview
 
-- Federated Learning (FL)
+Healthcare AI applications often work with highly sensitive medical data. Centralizing medical images for model training can introduce privacy and security concerns.
+
+This project explores a **privacy-preserving healthcare AI workflow** in which medical images can remain at local healthcare/edge clients while machine-learning models are trained and model updates are collaboratively aggregated through a Federated Learning workflow.
+
+The system also includes **HMAC-SHA256-based healthcare device authentication** to demonstrate how participating clients can be authenticated before taking part in the workflow.
+
+The project combines:
+
 - Edge-AI
-- Centralized Authorization Authority (CAA)
-- HMAC-SHA256 token authentication
-- OSDSTran (Optimized Spatial Densely Connected Swin Transformer)
-- Prairie Dog Optimization Algorithm (PDOA)
+- Federated Learning
+- HMAC-SHA256 authentication
 - FedAvg aggregation
-- Chest X-ray disease classification
+- CNN-based medical image classification
+- Chest X-ray classification
+- Model evaluation and visualization
+- Web-based healthcare demonstration dashboard
 
-## Problem
+---
 
-Centralized healthcare AI can require sensitive patient data to be transferred to a central location. The project addresses privacy, unauthorized participation, computational cost, and model-performance concerns by keeping raw data local and allowing only authenticated participants to contribute model updates.
+# 🎯 Objectives
 
-## Proposed Workflow
+The major objectives of this project are:
 
-1. Hospitals/devices register with the Centralized Authorization Authority.
-2. Authentication tokens are generated using HMAC-SHA256.
-3. Medical images are preprocessed locally.
-4. Local models are trained at participating hospitals.
-5. OSDSTran is described in the report as the proposed classification architecture.
-6. PDOA is used for hyperparameter optimization.
-7. Only model updates are sent to the federated server.
-8. Validated updates are aggregated using FedAvg.
-9. The global model is redistributed to participating clients.
-10. The model produces disease-classification results.
+1. Develop a privacy-aware healthcare AI workflow.
+2. Demonstrate Federated Learning for collaborative model training.
+3. Keep sensitive medical images at local client/edge nodes during the intended workflow.
+4. Implement HMAC-SHA256-based device authentication.
+5. Develop a CNN-based chest X-ray classification model.
+6. Evaluate the model using standard machine-learning metrics.
+7. Provide a simple web dashboard for demonstrating authentication and image prediction.
 
-## Reported Results
+---
 
-According to the supplied project report:
+# 🏗️ System Architecture
 
-| Metric | Proposed OSDSTran |
-|---|---:|
-| Accuracy | 98.88% |
-| Precision | 98.65% |
-| Recall | 98.75% |
-| F1-score | 98.81% |
-| AUC | 0.9883 |
-| PRC | 0.9881 |
-| Average computation time | 10.85 s |
-| Latency | 0.008 sec/packet |
-| Response time | approximately 5.5–6.1 s |
-
-The report compares the proposed model against VGG, ResNet, Xception, and ViT.
-
-## Repository Contents
+The overall workflow can be represented as:
 
 ```text
-Privacy-Preserving-Healthcare-EdgeAI-FederatedLearning/
-├── README.md
-├── requirements.txt
-├── .gitignore
-├── LICENSE
-├── docs/
-│   ├── Project_Report.pdf
-│   ├── Project_Presentation.pptx
-│   ├── architecture.md
-│   ├── results.md
-│   ├── publication-status.md
-│   └── diagrams/
-├── src/
-│   └── federated_cnn_demo.py
-├── notebooks/
-│   └── README.md
-└── dataset/
-    └── README.md
-```
+                  ┌─────────────────────────┐
+                  │   Hospital / Edge               │
+                  │        Client                   │
+                  │                                 │
+                  │  Local Medical Images           │
+                  │  Local Model Training           │
+                  └────────────┬────────────┘
+                                   │
+                                   │ Authentication
+                                   ▼
+                  ┌─────────────────────────┐
+                  │   CAA Authentication            │
+                  │                                 │
+                  │     HMAC-SHA256                 │
+                  └────────────┬────────────┘
+                                   │
+                                   │ Authenticated
+                                   │ Model Updates
+                                   ▼
+                  ┌─────────────────────────┐
+                  │    Federated Server             │
+                  │                                 │
+                  │    FedAvg Aggregation           │
+                  └────────────┬────────────┘
+                                   │
+                                   │ Global Model
+                                   ▼
+                  ┌─────────────────────────┐
+                  │   Participating Clients         │
+                  │                                 │
+                  │  Updated Global Model           │
+                  └─────────────────────────┘
 
-## Important Implementation Note
+🔐 Privacy by Design
 
-The supplied report describes OSDSTran + PDOA as the proposed research methodology. However, the implementation chapter included in the supplied report contains a TensorFlow CNN implementation with Conv2D/MaxPooling layers, HMAC verification, client splitting, and FedAvg. The repository therefore labels the included code as a **federated CNN demonstration** rather than falsely presenting it as a complete OSDSTran implementation.
+The intended Federated Learning workflow avoids directly centralizing raw medical images for collaborative training.
 
-The supplied report should remain the authoritative source for the project's reported research results.
+Instead:
 
-## Dataset
+                              Medical Data
+                                   ↓
+                      Local Hospital / Edge Client
+                                   ↓
+                         Local Model Training
+                                   ↓
+                              Model Update
+                                   ↓
+                             Authentication
+                                   ↓
+                            Federated Server
+                                   ↓
+                           FedAvg Aggregation
+                                   ↓
+                             Global Model
 
-The report references the NIH Chest X-ray dataset on Kaggle. The dataset itself is intentionally not included in this repository because of its size and licensing/distribution considerations. See `dataset/README.md`.
+This demonstrates the basic concept of collaborative machine learning while reducing the need to directly share raw training images.
 
-## Running the Included Demonstration
 
-The included source is based on the implementation chapter of the supplied report and expects:
+🔑 Device Authentication
 
-```text
+The project uses HMAC-SHA256 in the supplied authentication workflow.
+
+A healthcare device provides a device identifier, which is processed by the authentication mechanism before the client participates in the demonstration workflow.
+
+Example:
+                           Hospital / Device ID
+                                     ↓
+                                HMAC-SHA256
+                                     ↓
+                            Authentication Token
+                                     ↓
+                            Authenticated Client
+
+The web dashboard provides a simple interface for testing device authentication.
+
+
+🧠 Machine Learning Pipeline
+
+The medical-image classification component uses a Convolutional Neural Network (CNN).
+
+The dataset contains two classes:
 dataset/
 ├── NORMAL/
 └── PNEUMONIA/
-```
 
-Install dependencies:
+The general machine-learning workflow is:
 
-```bash
-pip install -r requirements.txt
-```
+                  Chest X-ray Images
+                         ↓
+                 Image Preprocessing
+                         ↓
+                   Dataset Split
+                         ↓
+                    CNN Training
+                         ↓
+              Federated Training Workflow
+                         ↓
+                 Model Aggregation
+                         ↓
+                     Evaluation
+                         ↓
+                     Prediction
 
-Then run:
 
-```bash
-python src/federated_cnn_demo.py
-```
 
-For a real run, set a secret key through the environment:
+📊 Model Performance
 
-```bash
-# Windows PowerShell
-$env:HMAC_SECRET_KEY="replace-with-your-own-secret"
+The current experimental run produced the following results:
 
-# Linux/macOS
-export HMAC_SECRET_KEY="replace-with-your-own-secret"
-```
+Metric	Result
+Accuracy	87.50%
+Precision	88.89%
+Recall	84.21%
+F1 Score	86.49%
 
-Do not commit real secret keys to GitHub.
+These values represent the current local experimental result and may vary depending on dataset split, training configuration, random initialization, and execution environment.
 
-## Academic Documents
 
-- [Project Report](docs/Project_Report.pdf)
-- [Project Presentation](docs/Project_Presentation.pptx)
-- [Architecture Notes](docs/architecture.md)
-- [Results Summary](docs/results.md)
-- [Publication Status](docs/publication-status.md)
 
-## Future Scope
+📈 Evaluation Results
 
-The supplied report proposes blockchain-based security enhancements, larger and more diverse medical datasets, reduced computational and communication cost, integration with real-time monitoring/wearable devices, and multi-disease healthcare applications.
+The project generates evaluation visualizations including a confusion matrix and federated accuracy plot.
 
-## Disclaimer
+- Confusion Matrix
 
-This repository is an academic final-year project. It is not a clinical diagnostic system and should not be used for medical diagnosis or treatment decisions.
+- Federated Accuracy
 
-## Frontend and Backend
 
-The repository includes a responsive web dashboard built around the project workflow.
 
-```text
-backend/
-├── app.py
+🖥️ Healthcare Demonstration Dashboard
+
+The project includes a web-based dashboard named HealthFL.
+
+The dashboard demonstrates:
+
+- Healthcare device authentication
+- Federated network status
+- Privacy-by-design concept
+- System architecture
+- Chest X-ray image upload
+- Model prediction
+- Prediction probability
+- Evaluation metrics
+
+Example workflow:
+
+Open HealthFL Dashboard
+        ↓
+Check Server Status
+        ↓
+Authenticate Healthcare Device
+        ↓
+Select Chest X-ray
+        ↓
+Upload Image
+        ↓
+CNN Model Prediction
+        ↓
+Display Prediction
+
+
+
+📁 Project Structure
+
+privacy-preserving-healthcare-federated-learning/
+│
+├── backend/
+│   └── app.py
+│
+├── dataset/
+│   ├── NORMAL/
+│   └── PNEUMONIA/
+│
+├── docs/
+│
+├── frontend/
+│   └── index.html
+│
+├── models/
+│   └── healthcare_model.keras
+│
+├── notebooks/
+│
+├── results/
+│   ├── confusion_matrix.png
+│   └── federated_accuracy.png
+│
+├── src/
+│   └── federated_cnn_demo.py
+│
+├── .gitignore
+├── LICENSE
+├── README.md
 └── requirements.txt
 
-frontend/
-├── index.html
-├── css/style.css
-└── js/app.js
-```
+The dataset, virtual environment, uploaded images, and trained model files are excluded from version control where appropriate. The trained model is generated locally after training.
 
-### Backend
 
-The Flask backend exposes:
 
-- `GET /api/health`
-- `GET /api/project`
-- `GET /api/federated/status`
-- `POST /api/authenticate`
-- `POST /api/predict`
+🛠️ Technologies Used :
 
-Install dependencies:
+Programming
+- Python
+- HTML
+- CSS
+- JavaScript
 
-```bash
-pip install -r backend/requirements.txt
-```
+Machine Learning
+- TensorFlow
+- Keras
+- Scikit-learn
+- NumPy
+- OpenCV
+- Matplotlib
 
-Set an HMAC secret before starting:
+AI / ML Concepts
+- Convolutional Neural Networks
+- Federated Learning
+- Federated Averaging (FedAvg)
+- Edge-AI
+- Medical Image Classification
+- Model Evaluation
 
-```powershell
-$env:HMAC_SECRET_KEY="your-development-secret"
-```
+Security
+- HMAC-SHA256
+- Healthcare Device Authentication
 
-or on Linux/macOS:
+Development Tools
+- Git
+- GitHub
+- Python Virtual Environment
+- Visual Studio Code / Command Prompt
 
-```bash
-export HMAC_SECRET_KEY="your-development-secret"
-```
 
-Start the application:
 
-```bash
-python backend/app.py
-```
+🚀 Installation and Setup --
 
-Then open `http://127.0.0.1:5000`.
+1. Clone the Repository:
 
-### Frontend
+       git clone https://github.com/namburuyaswanth-cell/privacy-preserving-healthcare-federated-learning.git
 
-The dashboard provides project metrics, federated client status, an HMAC authentication demonstration, and a chest X-ray upload interface.
+Move into the project directory:
 
-Real image inference is enabled only when a trained Keras model is placed at:
+       cd privacy-preserving-healthcare-federated-learning
 
-```text
-models/healthcare_model.keras
-```
+2. Create a Python Virtual Environment
 
-The supplied project files did not include a trained model file, so the backend explicitly reports when the model is unavailable instead of generating a fake prediction.
+The project was tested using Python 3.11.
+
+On Windows:
+
+       py -3.11 -m venv venv
+
+Activate the environment:
+
+       venv\Scripts\activate
+
+You should see:
+
+       (venv)
+
+at the beginning of your terminal prompt.
+
+
+📦 3. Install Dependencies
+
+Run:
+
+       pip install -r requirements.txt
+
+
+🧪 4. Run the Federated CNN Experiment
+
+From the project root directory:
+
+       python src\federated_cnn_demo.py
+
+The script performs the training/evaluation workflow and generates evaluation outputs.
+
+The trained model is saved locally under:
+
+       models/healthcare_model.keras
+
+Evaluation files are generated under:
+
+       results/
+
+
+🌐 5. Run the Healthcare Dashboard
+
+First, set the HMAC secret for local development.
+
+Windows CMD:
+
+        set HMAC_SECRET_KEY=my-local-development-secret-123
+
+Then start the backend:
+
+        python backend\app.py
+
+The Flask development server should start at:
+
+        http://127.0.0.1:5000
+
+Open the address in your browser.
+
+
+
+🔐 6. Test Device Authentication
+
+Open the HealthFL dashboard.
+
+Navigate to the Device Authentication section.
+
+Enter a device ID such as:
+
+        Hospital-04
+
+Click:
+
+        Authenticate
+
+A successful authentication response contains information such as:
+
+        authenticated: true
+        device_id: Hospital-04
+        token_type: HMAC-SHA256
+
+
+
+🩻 7. Test Chest X-ray Prediction
+
+After starting the dashboard:
+
+1. Navigate to Chest X-ray prediction.
+2. Click Choose File.
+3. Select a PNG, JPG, or JPEG chest X-ray image.
+4. Click Upload & Predict.
+5. The application processes the image using the trained model.
+6. The predicted class and probability are displayed.
+
+Possible classes:
+
+-- NORMAL
+-- PNEUMONIA
+
+The prediction functionality requires the locally generated model:
+
+    -- models/healthcare_model.keras
+
+
+
+🔬 Experimental Workflow
+
+The project was developed and tested through the following stages:
+
+
+Dataset Preparation
+        ↓
+Image Preprocessing
+        ↓
+CNN Model Development
+        ↓
+Federated Learning Workflow
+        ↓
+Model Aggregation
+        ↓
+Model Evaluation
+        ↓
+Model Saving
+        ↓
+Flask Backend
+        ↓
+HealthFL Frontend
+        ↓
+Device Authentication
+        ↓
+Chest X-ray Prediction
+
+
+
+📋 Key Learning Outcomes --
+
+Through this project, the following concepts were explored:
+
+- Data preprocessing for medical images
+- CNN-based image classification
+- Federated Learning concepts
+- FedAvg model aggregation
+- Edge-AI architecture
+- Secure device authentication
+- HMAC-SHA256
+- Model evaluation
+- Confusion matrix analysis
+- Precision, Recall and F1 Score
+- Flask backend development
+- Frontend-backend integration
+- Git and GitHub project management
+
+
+
+🔮 Future Improvements --
+
+The project can be extended with:
+
+- Differential Privacy
+- Secure Aggregation
+- Improved CNN and Transformer architectures
+- Larger and more diverse medical datasets
+- Advanced hyperparameter optimization
+- Real multi-client federated training
+- Client-level model monitoring
+- Experiment tracking
+- Cloud/edge deployment
+- Containerized deployment
+- Improved authentication and key management
+
+
+⚠️ Disclaimer
+
+This project is an academic final-year project developed for educational and research demonstration purposes.
+
+It is not intended for:
+
+- Clinical diagnosis
+- Real-world medical decision-making
+- Production healthcare deployment
+- Handling real patient information
+- Replacing professional medical advice
+
+The reported machine-learning results are experimental and should not be interpreted as clinical performance.
+
+
+
+⭐ Project Highlights --
+
+Privacy + AI + Security + Healthcare
+
+This project demonstrates how multiple areas of computer science can be combined into a single practical system:
+
+
+                   HEALTHCARE AI
+                        │
+        ┌───────────┼───────────┐
+        │               │              │
+        ▼              ▼              ▼
+    Edge-AI          Federated      Security
+                     Learning          │
+        │              │           HMAC-SHA256
+        │              │               │
+        └───────────┼───────────┘
+                       ▼
+                 Medical Image AI
+                       │
+                       ▼
+                    HealthFL
+                  Web Dashboard
