@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Secrets
+.env
+*.env
+
+# Uploaded files
+uploads/
+backend/uploads/
+
+# Dataset images
+dataset/NORMAL/
+dataset/PNEUMONIA/
+
+# Trained model files
+models/*.keras
+models/*.h5
+models/*.pkl
+
+# Backup files
+*_backup.py
+*_backup_*.py
+*.bak
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

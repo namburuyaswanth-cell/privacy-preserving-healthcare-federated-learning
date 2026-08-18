@@ -101,8 +101,12 @@ def main():
     print("Dataset:", X.shape)
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
-    )
+    X,
+    y,
+    test_size=0.2,
+    random_state=42,
+    stratify=y
+)
 
     X1, X_temp, y1, y_temp = train_test_split(
         X_train, y_train, test_size=0.66, random_state=42
@@ -175,6 +179,23 @@ def main():
     print(f"Precision      : {precision * 100:.2f}%")
     print(f"Recall         : {recall * 100:.2f}%")
     print(f"F1 Score       : {f1 * 100:.2f}%")
+
+    model_dir = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)),
+    "models"
+    )
+
+    os.makedirs(model_dir, exist_ok=True)
+
+    model_path = os.path.join(
+    model_dir,
+    "healthcare_model.keras"
+    )
+
+    global_model.save(model_path)
+
+    print("\nModel saved to:")
+    print(model_path)
 
     results_dir = os.path.join(
         os.path.dirname(os.path.dirname(__file__)), "results"

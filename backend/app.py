@@ -34,7 +34,7 @@ UPLOAD_DIR.mkdir(exist_ok=True)
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 HMAC_SECRET = os.environ.get("HMAC_SECRET_KEY", "")
 
-app = Flask(__name__, static_folder=str(FRONTEND_DIR))
+app = Flask(__name__, static_folder=str(FRONTEND_DIR), static_url_path="/static")
 CORS(app)
 
 
@@ -57,6 +57,9 @@ def hmac_signature(message, secret):
 def index():
     return send_from_directory(FRONTEND_DIR, "index.html")
 
+@app.get("/static/<path:filename>")
+def static_files(filename):
+    return send_from_directory(FRONTEND_DIR, filename)
 
 @app.get("/api/health")
 def health():
@@ -82,10 +85,10 @@ def project():
             "Edge-AI",
         ],
         "reported_metrics": {
-            "accuracy": "98.88%",
-            "precision": "98.65%",
-            "recall": "98.75%",
-            "f1_score": "98.81%",
+            "accuracy": "87.50%",
+            "precision": "88.89%",
+            "recall": "84.21%",
+            "f1_score": "86.49%",
             "auc": "0.9883",
             "prc": "0.9881",
         },
