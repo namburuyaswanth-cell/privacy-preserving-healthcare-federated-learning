@@ -1,6 +1,6 @@
 # Privacy-Preserving Healthcare Device Authentication via Edge-AI and Federated Learning
 
-A final-year B.Tech project focused on privacy-preserving healthcare AI using Federated Learning, Edge-AI, secure device/hospital authentication, and medical image classification.
+A project focused on privacy-preserving healthcare AI using Federated Learning, Edge-AI, secure device/hospital authentication, and medical image classification.
 
 ## Overview
 
