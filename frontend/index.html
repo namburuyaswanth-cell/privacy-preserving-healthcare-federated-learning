@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Healthcare Federated Learning</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-mark">FL</div>
+      <div>
+        <h1>HealthFL</h1>
+        <span>Privacy-Preserving Edge-AI</span>
+      </div>
+    </div>
+    <div id="serverStatus" class="status-pill">Checking server...</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">FINAL YEAR PROJECT</span>
+        <h2>Privacy-Preserving Healthcare Device Authentication via Edge-AI and Federated Learning</h2>
+        <p>
+          A demonstration dashboard for authenticated healthcare clients,
+          local medical-image processing, and federated model aggregation.
+        </p>
+        <div class="hero-actions">
+          <a href="#prediction" class="primary-btn">Test Image</a>
+          <a href="#architecture" class="secondary-btn">View Architecture</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="shield">🔐</div>
+        <h3>Privacy by Design</h3>
+        <p>Raw patient images remain at the local client in the federated-learning workflow.</p>
+      </div>
+    </section>
+
+    <section class="metrics" id="metrics">
+      <div class="metric-card"><strong id="accuracy">--</strong><span>Accuracy</span></div>
+      <div class="metric-card"><strong id="precision">--</strong><span>Precision</span></div>
+      <div class="metric-card"><strong id="recall">--</strong><span>Recall</span></div>
+      <div class="metric-card"><strong id="f1">--</strong><span>F1 Score</span></div>
+    </section>
+
+    <section class="section" id="architecture">
+      <div class="section-heading">
+        <span class="eyebrow">SYSTEM ARCHITECTURE</span>
+        <h2>Federated workflow</h2>
+      </div>
+
+      <div class="flow">
+        <div class="flow-card">
+          <span>01</span>
+          <h3>Hospital / Edge Client</h3>
+          <p>Medical images stay locally and are used for local model training.</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-card">
+          <span>02</span>
+          <h3>CAA Authentication</h3>
+          <p>HMAC-SHA256 is used in the supplied project workflow for client authentication.</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-card">
+          <span>03</span>
+          <h3>Federated Server</h3>
+          <p>Authenticated model updates are aggregated using FedAvg.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="panel">
+        <div class="section-heading">
+          <span class="eyebrow">CLIENTS</span>
+          <h2>Federated network</h2>
+        </div>
+        <div id="clients" class="client-list">
+          <p>Loading...</p>
+        </div>
+      </div>
+
+      <div class="panel" id="authentication">
+        <div class="section-heading">
+          <span class="eyebrow">SECURITY</span>
+          <h2>Device authentication</h2>
+        </div>
+        <form id="authForm">
+          <label for="deviceId">Hospital / Device ID</label>
+          <input id="deviceId" type="text" placeholder="e.g. Hospital-04" required>
+          <button class="primary-btn" type="submit">Authenticate</button>
+        </form>
+        <pre id="authResult" class="result-box">Waiting for authentication...</pre>
+      </div>
+    </section>
+
+    <section class="section prediction-section" id="prediction">
+      <div class="section-heading">
+        <span class="eyebrow">MEDICAL IMAGE DEMO</span>
+        <h2>Chest X-ray prediction</h2>
+        <p>
+          Upload a PNG/JPG/JPEG image. Real prediction requires a trained
+          Keras model at <code>models/healthcare_model.keras</code>.
+        </p>
+      </div>
+
+      <form id="predictionForm" class="upload-box">
+        <label class="file-label" for="imageInput">
+          <span class="upload-icon">＋</span>
+          <strong>Select chest X-ray image</strong>
+          <small>PNG, JPG or JPEG</small>
+        </label>
+        <input id="imageInput" name="image" type="file" accept=".png,.jpg,.jpeg" required>
+        <button class="primary-btn" type="submit">Upload & Predict</button>
+      </form>
+
+      <div id="predictionResult" class="prediction-result">
+        No image submitted yet.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Academic project demonstration • Edge-AI + Federated Learning + HMAC-SHA256</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
