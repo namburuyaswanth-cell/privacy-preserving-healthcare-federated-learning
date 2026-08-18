@@ -51,36 +51,36 @@ The overall workflow can be represented as:
 
 ```text
                   ┌─────────────────────────┐
-                  │   Hospital / Edge               │
-                  │        Client                   │
-                  │                                 │
-                  │  Local Medical Images           │
-                  │  Local Model Training           │
+                  │   Hospital / Edge       │
+                  │        Client           │
+                  │                         │
+                  │  Local Medical Images   │
+                  │  Local Model Training   │
                   └────────────┬────────────┘
-                                   │
-                                   │ Authentication
-                                   ▼
+                               │
+                               │ Authentication
+                               ▼
                   ┌─────────────────────────┐
-                  │   CAA Authentication            │
-                  │                                 │
-                  │     HMAC-SHA256                 │
+                  │   CAA Authentication    │
+                  │                         │
+                  │     HMAC-SHA256         │
                   └────────────┬────────────┘
-                                   │
-                                   │ Authenticated
-                                   │ Model Updates
-                                   ▼
+                               │
+                               │ Authenticated
+                               │ Model Updates
+                               ▼
                   ┌─────────────────────────┐
-                  │    Federated Server             │
-                  │                                 │
-                  │    FedAvg Aggregation           │
+                  │    Federated Server     │
+                  │                         │
+                  │    FedAvg Aggregation   │
                   └────────────┬────────────┘
-                                   │
-                                   │ Global Model
-                                   ▼
+                               │
+                               │ Global Model
+                               ▼
                   ┌─────────────────────────┐
-                  │   Participating Clients         │
-                  │                                 │
-                  │  Updated Global Model           │
+                  │   Participating Clients │
+                  │                         │
+                  │  Updated Global Model   │
                   └─────────────────────────┘
 
 🔐 Privacy by Design
@@ -494,16 +494,16 @@ This project demonstrates how multiple areas of computer science can be combined
                    HEALTHCARE AI
                         │
         ┌───────────┼───────────┐
-        │               │              │
-        ▼              ▼              ▼
-    Edge-AI          Federated      Security
-                     Learning          │
-        │              │           HMAC-SHA256
-        │              │               │
+        │           │           │
+        ▼           ▼           ▼
+    Edge-AI     Federated    Security
+                 Learning       │
+        │           │       HMAC-SHA256
+        │           │           │
         └───────────┼───────────┘
-                       ▼
-                 Medical Image AI
-                       │
-                       ▼
-                    HealthFL
-                  Web Dashboard
+                    ▼
+             Medical Image AI
+                    │
+                    ▼
+                 HealthFL
+              Web Dashboard
